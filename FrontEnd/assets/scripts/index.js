@@ -105,5 +105,140 @@ async function displayWorksByCategory (id) {
     });
 }
 displayWorksByCategory();
-    
    
+
+// Modification de l'affichage de la page en mode éditeur
+
+    // ajouter un bandeau "mode édition"
+const body = document.querySelector ("body");
+const header = document.querySelector ("header");
+
+const modeEdition = document.createElement ("div");
+modeEdition.innerHTML = `<i class="fa-regular fa-pen-to-square"></i> Mode édition`;
+body.insertBefore(modeEdition,header);
+modeEdition.classList.add ("bandeau-mode-edition");
+
+    // modifier le bouton login en logout
+const logElement = document.getElementById("login");
+logElement.innerHTML = "logout";
+ 
+    // ajouter le bouton modifier
+  
+const  h2MesProjets = portfolio.querySelector("h2")
+const btnModifier = document.createElement ("div")
+btnModifier.classList.add ("btn-modifier")
+h2MesProjets.appendChild (btnModifier)
+btnModifier.innerHTML = `<a href="#modal1" class="js-modal"> <i class="fa-regular fa-pen-to-square"></i> modifier</a>`
+       
+/**********  MODAL **********/
+
+
+const modal = document.getElementById("modal1");  
+const divModalRemove = document.querySelector(".modal-delete");
+const divModalAdd = document.querySelector(".modal-add");
+const galleryModal = document.querySelector(".gallery-modal"); 
+
+// fonction pour afficher les works dans la galerie de la modal
+
+async function displayWorksInModal () {
+    
+    galleryModal.innerHTML = ""; // reset de la galerie
+    const works = await getWorks();
+    
+    works.forEach((work) => {
+        const figureWork = document.createElement("figure");
+        const imgWork = document.createElement("img");
+        const deleteBtn = document.createElement("div");
+        const trashIcone = document.createElement("i");
+        deleteBtn.classList.add("delete-icon");
+        trashIcone.classList.add("fa-solid", "fa-trash-can");
+        deleteBtn.id = work.id;
+        imgWork.src = work.imageUrl;
+        imgWork.alt = work.title;
+        figureWork.appendChild(imgWork);
+        figureWork.appendChild(deleteBtn);
+        deleteBtn.appendChild(trashIcone);
+        galleryModal.appendChild(figureWork);
+    });
+deleteWorks();
+}
+displayWorksInModal();
+
+// fonction pour supprimer un work
+
+function deleteWorks () {
+    const trashIcones = document.querySelectorAll(".delete-icon");
+    trashIcones.forEach((trashIcone) => {
+        trashIcone.addEventListener("click", (e) => {
+            const id = trashIcone.id; // récupération de l'id du work à supprimer
+            const init =  {
+                method: "DELETE",
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: "Bearer " + "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTcxNzQ1MjUwMSwiZXhwIjoxNzE3NTM4OTAxfQ.3qg3ldAzDhaYvp_e62B_-AY98rAHfPTqCHlAGkVEpYs",
+                },
+            };
+          
+            fetch(`http://localhost:5678/api/works/${id}`, init)
+            .then((response) => {
+                if (response.ok) {
+                    displayWorksInModal();
+                }
+            });
+        }
+    );
+});
+}
+
+  // ouverture de la modal
+  btnModifier.addEventListener("click", () => {
+    modal.style.display = "flex";
+    modal.setAttribute ("aria-hidden", "false");
+    modal.setAttribute ("aria-modal", "true");
+});
+
+// Passage de la modal de suppression à la modal d'ajout
+const btnAdd = document.querySelector(".btn-add");
+btnAdd.addEventListener("click", (e) => {
+divModalRemove.style.display = "none";
+divModalAdd.style.display = "flex";
+});
+
+// Passage de la modal d'ajout à la modal de suppression
+const btnComeBack = document.getElementById("come-back");
+btnComeBack.addEventListener("click", (e) => {
+    divModalAdd.style.display = "none";
+    divModalRemove.style.display = "block";
+});
+
+// Fermeture de la modal
+    // Fermeture de la modal en cliquant sur le bouton close
+    const btnClose = document.querySelectorAll(".close");
+    console.log (btnClose)
+    btnClose.forEach((btn) => {
+        btn.addEventListener("click", () => {
+            modal.style.display = "none";
+            modal.setAttribute ("style", "display:none");
+            modal.setAttribute ("aria-hidden", "true");
+            modal.removeAttribute("aria-modal");
+            if (divModalRemove.style = "display:none") {
+              divModalRemove.removeAttribute ("style", "display:none")
+              divModalAdd.setAttribute ("style", "display:none")
+            }
+        });
+    });
+        
+        // Fermeture de la modal en cliquant en dehors de la modal
+        modal.addEventListener ("click" ,(e) => {
+        console.log (e.target.id)
+        if (e.target.id == "modal1") {
+            modal.setAttribute ("style", "display:none");
+            modal.setAttribute ("aria-hidden", "true");
+            modal.removeAttribute("aria-modal");
+            if (divModalRemove.style = "display:none") {
+              divModalRemove.removeAttribute ("style", "display:none")
+              divModalAdd.setAttribute ("style", "display:none")
+            }
+        };
+      });
+  

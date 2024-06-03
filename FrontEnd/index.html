@@ -19,7 +19,7 @@
 		<ul>
 			<li>projets</li>
 			<li>contact</li>
-			<li>login</li>
+			<li id="login">login</li>
 			<li><img src="./assets/icons/instagram.png" alt="Instagram"></li>
 		</ul>
 	</nav>
@@ -55,6 +55,41 @@
 			<input type="submit" value="Envoyer">
 		</form>
 	</section>
+	<aside id ="modal1" class="modal" aria-hidden="true" role="dialog" style="display: none;"> 
+		<div class="modal-wrapper">
+		<div class="modal-delete">
+			<div class="modal-header modal-header-remove">
+				<span class="come-back"><i class="fa-solid fa-arrow-left"></i></span>
+				<span class ="close"><i class="fa-solid fa-xmark"></i></span>
+			</div>
+		<h3>Galerie photo</h3>
+		<div class="gallery-modal">
+		</div>
+		<div class="line-modal"></div>
+		<button class="btn-modal btn-add">Ajouter une photo</button>
+		</div>
+		<div class="modal-add" style="display: none;">
+			<div class="modal-header modal-header-add">
+				<span id ="come-back" class="come-back"><i class="fa-solid fa-arrow-left"></i></span>
+				<span class ="close"><i class="fa-solid fa-xmark"></i></span>
+			</div>
+		<h3>Ajout photo</h3>
+		<form id="addWorkForm">
+			<label for="image">Image</label>
+			<input type="file" name="image" id="image">
+			<div class="input">
+				<label for="title">Titre</label>
+				<input type="text" name="title" id="title">
+				<label for="category">Catégorie</label>
+				<input type="text" name="categoryId" id="category">
+			</div>
+			
+			<div class ="line-modal"></div>
+			<input class="btn-modal" type="submit" value="Valider">
+		</form>
+		</div>
+		</div>
+	</aside>
 </main>	
 
 <footer>
