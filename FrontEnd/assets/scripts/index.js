@@ -1,7 +1,7 @@
     // Variables
 const gallery = document.querySelector(".gallery");
 const portfolio = document.getElementById("portfolio");
-
+const token = sessionStorage.getItem("token");
     // Fonction qui retourne tableau des works
 async function getWorks () {
     const response = await fetch ("http://localhost:5678/api/works");
@@ -25,13 +25,14 @@ async function displayAllWorks () {
     const works = await getWorks();
     works.forEach((work) => {
         createWorks(work);
+       
     });
 }
 displayAllWorks();
 
 
     // Fonction pour créer les works que l'on va afficher dans le DOM
-function createWorks (work) {
+function createWorks (work) { 
     const figureWork = document.createElement("figure");
     const imgWork = document.createElement("img");
     const figcaptionWork = document.createElement("figcaption");
@@ -170,24 +171,29 @@ function deleteWorks () {
     const trashIcones = document.querySelectorAll(".delete-icon");
     trashIcones.forEach((trashIcone) => {
         trashIcone.addEventListener("click", (e) => {
+            
             const id = trashIcone.id; // récupération de l'id du work à supprimer
             const init =  {
                 method: "DELETE",
                 headers: {
                     "Content-Type": "application/json",
-                    Authorization: "Bearer " + "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTcxNzQ1MjUwMSwiZXhwIjoxNzE3NTM4OTAxfQ.3qg3ldAzDhaYvp_e62B_-AY98rAHfPTqCHlAGkVEpYs",
+                    Authorization: "Bearer " + token,
                 },
             };
           
             fetch(`http://localhost:5678/api/works/${id}`, init)
             .then((response) => {
                 if (response.ok) {
+                   
                     displayWorksInModal();
+                    
                 }
+  
             });
         }
     );
 });
+
 }
 
   // ouverture de la modal
@@ -241,4 +247,31 @@ btnComeBack.addEventListener("click", (e) => {
             }
         };
       });
+
+      // Ajout d'un work
+        const form = document.getElementById("addWorkForm");
+        console.log (form)
+        form.addEventListener("submit", (e) => {
+            e.preventDefault();
+            const formData = new FormData(form);
+            const data = Object.fromEntries(formData);
+            console.log(data);
+
+            const init = {
+                method: "POST",
+                headers: {
+                    "Content-Type": "multipart/form-data",
+                    Authorization: "Bearer " + token,
+                },
+                body: JSON.stringify(data),
+            };
+
+            fetch("http://localhost:5678/api/works", init)
+            .then((response) => {
+                if (response.ok) {
+                    displayWorksInModal();
+                    form.reset();
+                }
+            });
+        });
   
