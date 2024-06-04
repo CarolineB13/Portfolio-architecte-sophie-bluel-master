@@ -121,7 +121,7 @@ modeEdition.classList.add ("bandeau-mode-edition");
 
     // modifier le bouton login en logout
 const logElement = document.getElementById("login");
-logElement.innerHTML = "logout";
+//logElement.innerHTML = "logout";
  
     // ajouter le bouton modifier
   
@@ -249,29 +249,44 @@ btnComeBack.addEventListener("click", (e) => {
       });
 
       // Ajout d'un work
+      const formImageInput = document.getElementById("image");
+      const formTitle = document.getElementById("title");
+      const formCategory = document.getElementById("category");
+
         const form = document.getElementById("addWorkForm");
         console.log (form)
         form.addEventListener("submit", (e) => {
             e.preventDefault();
-            const formData = new FormData(form);
-            const data = Object.fromEntries(formData);
-            console.log(data);
 
-            const init = {
+            const formData = new FormData();
+            formData.append('image', formImageInput.files[0])
+            formData.append('title', formTitle.value)
+            formData.append('category', formCategory.value)
+        
+            fetch('http://localhost:5678/api/works', {
                 method: "POST",
+                body: formData,
                 headers: {
-                    "Content-Type": "multipart/form-data",
-                    Authorization: "Bearer " + token,
-                },
-                body: JSON.stringify(data),
-            };
-
-            fetch("http://localhost:5678/api/works", init)
-            .then((response) => {
-                if (response.ok) {
-                    displayWorksInModal();
-                    form.reset();
+                    "Authorization": `Bearer ${token}`
                 }
-            });
-        });
+            })
+            .then(response => {
+                if (response.ok) {
+                    return response.json()
+                    
+                } else {
+                    throw new Error('Error en la solicitud')
+                }
+            })
+            .then(data => {
+                console.log('Success:', data)   
+            })
+            .catch(error => {
+                console.error('Erreur:', error)
+            })
+          
+        })
+        
+        
+    
   
