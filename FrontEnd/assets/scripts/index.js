@@ -2,6 +2,8 @@
 const gallery = document.querySelector(".gallery");
 const portfolio = document.getElementById("portfolio");
 const token = sessionStorage.getItem("token");
+
+   
     // Fonction qui retourne tableau des works
 async function getWorks () {
     const response = await fetch ("http://localhost:5678/api/works");
@@ -50,12 +52,13 @@ containerFilters.classList.add("container-filters");
 portfolio.insertBefore(containerFilters, gallery);
 
     //Création du bouton filtre "Tous"
-const buttonAll = document.createElement("button");
-buttonAll.textContent = "Tous";
-buttonAll.classList.add("filter-selected");
-buttonAll.id = "0";
-containerFilters.appendChild(buttonAll);
-
+    if (!token) {
+        const buttonAll = document.createElement("button");
+        buttonAll.textContent = "Tous";
+        buttonAll.classList.add("filter-selected");
+        buttonAll.id = "0";
+        containerFilters.appendChild(buttonAll);
+    }
 
     // Fonction pour afficher les autres filtres de categories
 async function displayCategories () {
@@ -68,7 +71,9 @@ async function displayCategories () {
         containerFilters.appendChild(buttonCategory);
     });
 }
+if (!token) {
 displayCategories();
+}
 
     // Fonction pour afficher les works en fonction de la catégorie sélectionnée
 async function displayWorksByCategory (id) {
@@ -106,10 +111,11 @@ async function displayWorksByCategory (id) {
     });
 }
 displayWorksByCategory();
+
    
 
 // Modification de l'affichage de la page en mode éditeur
-
+if (token) {
     // ajouter un bandeau "mode édition"
 const body = document.querySelector ("body");
 const header = document.querySelector ("header");
@@ -121,7 +127,7 @@ modeEdition.classList.add ("bandeau-mode-edition");
 
     // modifier le bouton login en logout
 const logElement = document.getElementById("login");
-//logElement.innerHTML = "logout";
+logElement.innerHTML = "logout";
  
     // ajouter le bouton modifier
   
@@ -130,10 +136,17 @@ const btnModifier = document.createElement ("div")
 btnModifier.classList.add ("btn-modifier")
 h2MesProjets.appendChild (btnModifier)
 btnModifier.innerHTML = `<a href="#modal1" class="js-modal"> <i class="fa-regular fa-pen-to-square"></i> modifier</a>`
-       
+
+    // se déconnecter
+logElement.addEventListener("click", (e) => {
+    e.preventDefault();
+    sessionStorage.removeItem("token");
+    location.reload();  
+});
+}
 /**********  MODAL **********/
 
-
+const btnModifier = document.querySelector(".btn-modifier");
 const modal = document.getElementById("modal1");  
 const divModalRemove = document.querySelector(".modal-delete");
 const divModalAdd = document.querySelector(".modal-add");
@@ -171,6 +184,7 @@ function deleteWorks () {
     const trashIcones = document.querySelectorAll(".delete-icon");
     trashIcones.forEach((trashIcone) => {
         trashIcone.addEventListener("click", (e) => {
+            e.preventDefault();
             
             const id = trashIcone.id; // récupération de l'id du work à supprimer
             const init =  {
@@ -275,7 +289,7 @@ btnComeBack.addEventListener("click", (e) => {
                     return response.json()
                     
                 } else {
-                    throw new Error('Error en la solicitud')
+                    throw new Error("la requête n\'a pas abouti")
                 }
             })
             .then(data => {
