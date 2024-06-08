@@ -3,6 +3,7 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Sophie Bluel - Architecte d'intérieur</title>
+	<link rel="shortcut icon" href="./assets/icons/favicon-32x32.png">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -75,13 +76,19 @@
 			</div>
 		<h3>Ajout photo</h3>
 		<form method="post" action="#" id="addWorkForm">
-			<label for="image">Image</label>
-			<input type="file" name="image" id="image">
+			<div class="container-image">
+				<i class="fa-regular fa-image"></i>
+				<label for="image">+ Ajouter photo</label>
+				<input type="file" name="image" id="image">
+				<p>jpg, png : 4 mo max</p>
+				<img id="preview" src="#" alt="Aperçu de l'image selectionnée">
+			</div>
+			
 			<div class="input">
 				<label for="title">Titre</label>
 				<input type="text" name="title" id="title">
 				<label for="category">Catégorie</label>
-				<input type="text" name="category" id="category">
+				<select name="category" id="category"></select>
 			</div>
 			
 			<div class ="line-modal"></div>

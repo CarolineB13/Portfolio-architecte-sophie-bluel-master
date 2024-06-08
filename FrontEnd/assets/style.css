@@ -130,6 +130,7 @@ li:hover {
 #introduction {
 	display: flex;
 	align-items: center;
+	margin-bottom: 150px;
 }
 #introduction figure {
 	flex: 1
@@ -176,7 +177,7 @@ li:hover {
 	display: flex;
 	justify-content: center;
 	gap: 10px;
-	margin-bottom: 48Px;
+	margin: 48px 0px;
 }
 #portfolio .filter-selected {
 	font-family: Syne;
@@ -214,10 +215,13 @@ li:hover {
 	grid-template-columns: 1fr 1fr 1fr;
 	grid-column-gap: 20px;
 	grid-row-gap: 20px;
+	
 }
 
 .gallery img {
-	width: 100%;
+	width: 367px;
+	height: 489px;
+	object-fit: cover;
 
 }
 #contact {
@@ -342,18 +346,21 @@ footer nav ul {
 }
 
 .gallery-modal {
-	display: grid;
+    display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
     column-gap: 9px;
     row-gap: 25px;
-    width: 421px;
-	margin: auto;
-	padding: 45px 0px
-
+    margin: 3em auto;
+    overflow: auto;
+    max-width: 450px;
+    max-height: 400px;
 }
+
 .gallery-modal img {
+	
+    width: 77px;
+	height: 103px;
 	object-fit: cover;
-    width: 100%;
 }
 .gallery-modal figure {
 	position: relative;
@@ -361,7 +368,7 @@ footer nav ul {
 .delete-icon {
     position: absolute;
     top: 5px;
-    right: 5px;
+    right: 10px;
     background: black;
     width: 17px;
     height: 17px;
@@ -380,7 +387,7 @@ footer nav ul {
 .gallery-modal i:hover {
 	cursor: pointer;
 }
-.modal-line {
+.line-modal {
     width: 420px;
     border: 1px solid #B3B3B3;
     margin: auto
@@ -415,14 +422,26 @@ footer nav ul {
 .modal-add {
 	flex-direction: column;
 }
+
+.modal-add h3 {
+    margin: 20px 0 35px;
+}
+
+.modal-add form {
+
+	margin: 0 auto;
+}
 .modal-add form .container-image {
-	width: 420px;
-	height: 169px;
-	border-radius: 3px;
-	background-color: #E8F1F6;
-	margin: auto;
-	
-	}
+  
+    height: 169px;
+    border-radius: 3px;
+    background-color: #E8F1F6;
+    display: flex;
+  	position: relative;
+  	flex-direction: column;
+  	align-items: center;
+
+}
 	
 	
 	
@@ -436,7 +455,6 @@ footer nav ul {
 		width: 173px;
 		height: 36px;
 		display: flex;
-		margin: auto;
 		justify-content: center;
 		align-items: center;
 	}
@@ -455,13 +473,16 @@ footer nav ul {
 		justify-content: center;
 	  }
 	
-	  .modal-add form .container-image img {
+	  .modal-add form img {
 		display: none;
-		max-width: 100%;
-		height: 100%;
-		position: relative;
-		z-index: 1;
-	  }
+		width: 129px;
+		height: 169px;
+		object-fit: cover;
+		margin: auto;
+		position: absolute;
+
+   
+	}
 	 
 	
 	  
@@ -469,24 +490,48 @@ footer nav ul {
 		font-size: 10px;
 		text-align: center;
 		color: #444444;
+		margin-top: 10px;
 	}
 	
 	.modal-add form label {
 		line-height: 16.42px;
 		text-align: left;
 		color: #3D3D3D;
-		margin: auto;
 		width: 420px;
 	}
-	
+
+
 	.modal-add form .input {
-		width: 420px;
-		margin: auto;
+		
+		font-size: 1.2em;
+
+		margin-top: 30px;
+		margin-bottom: 45px;
 		display: flex;
 		flex-direction: column;
-	}
+		gap: 10px;
 	
+	}
 
+	.input input {
+		width: 420px;
+		height: 51px;
+		background-color: #FFFFFF;
+		box-shadow: 0px 4px 14px 0px #00000017;
+		border: none;
+
+	}
+	.input select {
+		width: 420px;
+		height: 51px;
+		background-color: #FFFFFF;
+		box-shadow: 0px 4px 14px 0px #00000017;
+		border: none;
+		appearance: none;
+	}
+	.modal-add form .input label {
+		margin-top: 10px;
+	}
 	/* PAGE LOGIN */
 
 	#index {
@@ -502,7 +547,7 @@ footer nav ul {
 	.login-container {
 		
 	width: 379px;
-	margin:10em auto;
+	margin:10em auto 20em;
 	}
 	.login-container h2 {
 		display: flex;

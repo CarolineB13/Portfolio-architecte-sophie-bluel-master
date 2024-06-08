@@ -145,7 +145,7 @@ logElement.addEventListener("click", (e) => {
 });
 }
 /**********  MODAL **********/
-
+if (token) {
 const btnModifier = document.querySelector(".btn-modifier");
 const modal = document.getElementById("modal1");  
 const divModalRemove = document.querySelector(".modal-delete");
@@ -262,13 +262,54 @@ btnComeBack.addEventListener("click", (e) => {
         };
       });
 
-      // Ajout d'un work
+      // Fonction pour prévisualiser l'image
+      const imgPreview = document.getElementById("preview");
+      console.log(preview);
       const formImageInput = document.getElementById("image");
+      console.log(formImageInput);
       const formTitle = document.getElementById("title");
+      console.log(formTitle);
       const formCategory = document.getElementById("category");
+      console.log(formCategory);
+      const form = document.getElementById("addWorkForm");
+      console.log (form)
 
-        const form = document.getElementById("addWorkForm");
-        console.log (form)
+
+      function previewFile () {
+      formImageInput.addEventListener("change", () =>{
+        const file = document.querySelector("input[type=file]").files[0];
+        console.log(file);
+        const imgLabel = document.querySelector("label[for=image]");
+        console.log(imgLabel);
+        if (file) {
+        const reader = new FileReader();
+        reader.onloadend = function (e) {
+            imgPreview.src = reader.result;
+            imgPreview.style.display = "block";
+            imgLabel.style.display = "none";
+        };
+            reader.readAsDataURL(file);
+        } else {
+            imgPreview.style.display = "none";
+        }
+      });
+        }   
+      previewFile();
+
+    // créer la liste des catégories dans le select
+    async function displayCategoriesInSelect () {
+        const select = document.getElementById("category");
+        const categories = await getCategories();
+        categories.forEach((category) => {
+            const optionCategory = document.createElement("option");
+            optionCategory.value = category.id;
+            optionCategory.textContent = category.name;
+            select.appendChild(optionCategory);
+        });
+    }
+    displayCategoriesInSelect();
+    // Ajout d'un work
+
         form.addEventListener("submit", (e) => {
             e.preventDefault();
 
@@ -300,7 +341,7 @@ btnComeBack.addEventListener("click", (e) => {
             })
           
         })
-        
+    } 
         
     
   
