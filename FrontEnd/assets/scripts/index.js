@@ -303,7 +303,7 @@ btnComeBack.addEventListener("click", (e) => {
         // Ajouter une option vide par défaut
             const defaultOption = document.createElement('option');
             defaultOption.value = "";
-            defaultOption.textContent = "Choisissez une catégorie";
+            //defaultOption.textContent = "Choisissez une catégorie";
             defaultOption.disabled = true;
             defaultOption.selected = true;
             select.appendChild(defaultOption);
