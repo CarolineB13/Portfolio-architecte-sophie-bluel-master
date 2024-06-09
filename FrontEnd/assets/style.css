@@ -405,7 +405,8 @@ footer nav ul {
 	margin: auto;
 	font-family: Syne;
 	font-size: 14px;
-	margin-top: 40px
+	margin-top: 40px;
+	border: none;
 
 }
 
@@ -527,10 +528,27 @@ footer nav ul {
 		background-color: #FFFFFF;
 		box-shadow: 0px 4px 14px 0px #00000017;
 		border: none;
-		appearance: none;
+		color: #6C6C6C;
 	}
 	.modal-add form .input label {
 		margin-top: 10px;
+	}
+
+	.btn-modal-disabled {
+		display: flex;
+		width: 237px;
+		height: 36px;
+		border-radius: 60px;
+		background-color: #A7A7A7;
+		color: #FFFFFF;
+		justify-content: center;
+		align-items: center;
+		margin: auto;
+		font-family: Syne;
+		font-size: 14px;
+		margin-top: 40px;
+		border:none;
+	
 	}
 	/* PAGE LOGIN */
 

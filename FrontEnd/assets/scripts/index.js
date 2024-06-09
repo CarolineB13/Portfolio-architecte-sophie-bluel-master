@@ -299,7 +299,17 @@ btnComeBack.addEventListener("click", (e) => {
     // créer la liste des catégories dans le select
     async function displayCategoriesInSelect () {
         const select = document.getElementById("category");
+        
+        // Ajouter une option vide par défaut
+            const defaultOption = document.createElement('option');
+            defaultOption.value = "";
+            defaultOption.textContent = "Choisissez une catégorie";
+            defaultOption.disabled = true;
+            defaultOption.selected = true;
+            select.appendChild(defaultOption);
+        // Récupérer les catégories dynamiques
         const categories = await getCategories();
+        // Ajouter les autres options dynamiquement
         categories.forEach((category) => {
             const optionCategory = document.createElement("option");
             optionCategory.value = category.id;
@@ -308,6 +318,37 @@ btnComeBack.addEventListener("click", (e) => {
         });
     }
     displayCategoriesInSelect();
+
+
+    // vérification que les inputs sont remplis
+
+    document.addEventListener('DOMContentLoaded', function() {
+        
+        const submitBtn = document.getElementById('btn-submit-add');
+    
+        function checkInputs() {
+            if (
+                formImageInput.files.length > 0 &&
+                formTitle.value.trim() !== "" &&
+                formCategory.value !== ""
+            ) {
+                submitBtn.disabled = false;
+                submitBtn.classList.remove('btn-modal-disabled');
+                submitBtn.classList.add('btn-modal');
+            } else {
+                submitBtn.disabled = true;
+            }
+        }
+    
+        formImageInput.addEventListener('change', checkInputs);
+        formTitle.addEventListener('input', checkInputs);
+        formCategory.addEventListener('change', checkInputs);
+    });
+
+
+
+
+
     // Ajout d'un work
 
         form.addEventListener("submit", (e) => {
