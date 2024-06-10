@@ -79,6 +79,7 @@ function removeWorkFromGallery(workId) {
     }
 }
     
+
         // Création de la div container-filters
     const containerFilters = document.createElement("div");
     containerFilters.classList.add("container-filters");
@@ -266,6 +267,8 @@ function addDeleteEventListeners() {
             if (response.ok) {
                 removeWorkFromGallery(id);
                 removeWorkFromModal(id);
+                imgWork.setAttribute ("style", "display:none");
+                imgLabel.setAttribute ("style", "display:block");
             }
         });
     });
@@ -420,10 +423,18 @@ async function addWork(formData) {
         addWorkToGallery(newWork);
         addWorkToModal(newWork);
         form.reset();
+        document.getElementById("category").selectedIndex = -1;
+        imgPreview.setAttribute ("style", "display:none");
+        const imgLabel = document.querySelector("label[for=image]");
+        imgLabel.setAttribute ("style", "display:flex");
         modal.setAttribute ("style", "display:none");
         modal.setAttribute ("aria-hidden", "true");
         modal.removeAttribute("aria-modal");
-
+        if (divModalRemove.style = "display:none") {
+          divModalRemove.removeAttribute ("style", "display:none")
+          divModalAdd.setAttribute ("style", "display:none")
+    
+        }
 
     } else {
         throw new Error("La requête n'a pas abouti");
