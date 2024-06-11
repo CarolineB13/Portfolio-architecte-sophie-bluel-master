@@ -424,13 +424,8 @@ footer nav ul {
 	flex-direction: column;
 }
 
-.modal-add h3 {
-    margin: 20px 0 35px;
-}
-
 .modal-add form {
-
-	margin: 0 auto;
+    margin: 3em auto;
 }
 .modal-add form .container-image {
   
