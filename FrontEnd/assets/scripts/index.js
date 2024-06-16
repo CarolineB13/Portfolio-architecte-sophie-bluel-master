@@ -267,8 +267,7 @@ function addDeleteEventListeners() {
             if (response.ok) {
                 removeWorkFromGallery(id);
                 removeWorkFromModal(id);
-                imgWork.setAttribute ("style", "display:none");
-                imgLabel.setAttribute ("style", "display:block");
+            
             }
         });
     });
